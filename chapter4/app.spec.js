@@ -3,8 +3,9 @@ const { assert, expect } = require("chai");
 
 // 생산 부족분을 제대로 계산하는지 확인하는 테스트
 describe("province", function () {
+  let asia;
   this.beforeEach(function () {
-    const asia = new Province(sampleProvinceData());
+    asia = new Province(sampleProvinceData());
   });
 
   it("shortfall", function () {
