@@ -3,9 +3,15 @@ const { assert, expect } = require("chai");
 
 // 생산 부족분을 제대로 계산하는지 확인하는 테스트
 describe("province", function () {
-  it("shortfall", function () {
+  this.beforeEach(function () {
     const asia = new Province(sampleProvinceData());
-    // assert.equal(asia.shortfall, 5);
+  });
+
+  it("shortfall", function () {
     expect(asia.shortfall).equal(5);
+  });
+
+  it("profit", function () {
+    expect(asia.profit).equal(230);
   });
 });
