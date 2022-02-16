@@ -1,4 +1,4 @@
-function circum(radius) {
+function circumference(radius) {
   return 2 * Math.PI * radius;
 }
 
@@ -6,14 +6,19 @@ function circum(radius) {
 
 class Book {
   addReservation(customer) {
-    this._reservation.push(customer);
+    this.zz_addReservation(customer, false);
+  }
+
+  zz_addReservation(customer, isPriority) {
+    assert(isPriority == true || isPriority == false);
+    this._reservations.push(customer);
   }
 }
 
 /* ------------------------------------------------ */
 
 function inNewEngland(aCustomer) {
-  return ['MA', 'CT', 'ME', 'VT', 'NH', 'RI'].includes(aCustomer.address.state);
+  return ['MA', 'CT', 'ME', 'VT', 'NH', 'RI'].includes(stateCode);
 }
 
-const newEngland = someCustomers.filter((c) => inNewEngland(c));
+const newEngland = someCustomers.filter((c) => inNewEngland(c.address.state));
