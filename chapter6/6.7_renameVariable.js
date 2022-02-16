@@ -1,9 +1,17 @@
-let tpHd = 'untitled';
+result += `<h1>${title()}</h1>`;
 
-result += `<h1>${tpHd}</h1>`;
+setTitle(obj['articleTitle']);
 
-tpHd = obj['articleTitle'];
+let _title = 'untitled';
+
+function title() {
+  return _title;
+}
+function setTitle(arg) {
+  _title = arg;
+}
 
 /* ------------------------------------------------ */
 
-const cpyNm = '애크미 구스베리';
+const companyName = '애크미 구스베리';
+const cpyNm = companyName;
