@@ -1,6 +1,9 @@
 interface PerformInfo {
   playID: string;
   audience: number;
+  play?: PlayInfo;
+  amount?: number;
+  volumeCredits?: number;
 }
 
 interface Invoice {
@@ -24,4 +27,11 @@ interface Play {
   [playName: string]: PlayInfo;
 }
 
-export { Invoice, PerformInfo, Play, PlayInfo };
+interface StatementData {
+  customer: string;
+  performances: PerformInfo[];
+  totalAmount: number;
+  totalVolumeCredits: number;
+}
+
+export { Invoice, PerformInfo, Play, PlayInfo, StatementData };
