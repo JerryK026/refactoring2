@@ -139,4 +139,4 @@ const usd = (money: number): string => {
   }).format(money / 100);
 };
 
-export { statement, usd, getPlayInfo };
+export { statement, usd, getPlayInfo, createStatementData };

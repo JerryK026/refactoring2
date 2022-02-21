@@ -1,12 +1,13 @@
-import { statement, usd, playFor, calculator, pointEarning } from './statement';
+import { statement, usd, getPlayInfo, createStatementData } from './statement';
 
-import { Invoice, Play } from './interfaces';
+import { Invoice, Play, StatementData } from './interfaces';
 
 const invoice: Invoice = require('../resources/invoices.json');
 const plays: Play = require('../resources/play.json');
 
-let statements: string[];
-describe('청구 내역서에서 ', () => {
+describe('청구 내역서 결과에서 ', () => {
+  let statements: string[];
+
   beforeAll(() => {
     statements = statement(invoice, plays).split('\n');
   });
@@ -19,29 +20,25 @@ describe('청구 내역서에서 ', () => {
     expect(statements[4]).toEqual('총액: $1,730.00');
     expect(statements[5]).toEqual('적립 포인트: 47점');
   });
+});
 
+describe('달러화를 하면', () => {
   test('123456 -> $123.456', () => {
     expect(usd(123456)).toEqual('$1,234.56');
   });
+});
 
-  test('연극 이름(hamlet)과 type(comedy)를 반환한다.', () => {
-    expect(playFor(invoice.performances[0].playID, plays)).toEqual({
+describe('연극 정보', () => {
+  test('연극 이름(hamlet)과 type(tragedy)를 반환한다.', () => {
+    expect(getPlayInfo(invoice.performances[0].playID, plays)).toEqual({
       name: 'Hamlet',
       type: 'tragedy',
     });
   });
-
-  test('계산 결과를 반환한다. ', () => {
-    expect(calculator(invoice.performances[0], plays)).toEqual(65000);
-  });
-});
-
-describe('포인트 적립은 ', () => {
-  test('25점이 적립되어야 한다. ', () => {
-    expect(pointEarning(invoice.performances[0], plays)).toEqual(25);
-  });
-
-  test('희극 포인트는 5명마다 추가 적립을 받아야 한다. ', () => {
-    expect(pointEarning(invoice.performances[1], plays)).toEqual(12);
+  test('연극 이름(As You Like It)과 type(comedy)를 반환한다.', () => {
+    expect(getPlayInfo(invoice.performances[1].playID, plays)).toEqual({
+      name: 'As You Like It',
+      type: 'comedy',
+    });
   });
 });
