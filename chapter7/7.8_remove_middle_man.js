@@ -2,13 +2,11 @@ class Person {
   get manager() {
     return this._department.manager;
   }
-}
 
-class Department {
-  get manager() {
-    return this._manager;
+  get department() {
+    return this._department;
   }
 }
 
 const aPerson = new Person();
-const manager = aPerson.manager;
+const manager = aPerson.department.manager;
