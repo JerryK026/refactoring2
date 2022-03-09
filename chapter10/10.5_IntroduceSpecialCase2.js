@@ -9,6 +9,30 @@ class Customer {
   get billingPlan() {}
   set billingPlan(arg) {}
   get paymentHistory() {}
+
+  get isUnknown() {
+    return false;
+  }
+
+  get customer() {
+    return this._customer === "미확인 고객"
+      ? createUnknownCustomer()
+      : this._customer;
+  }
+}
+
+function createUnknownCustomer() {
+  return {
+    name: "거주자",
+    billingPlan: registry.billingPlans.basic,
+    paymentHistory: {
+      weeksDeliquentInLastYear: 0,
+    },
+  };
+}
+
+function isUnknown(arg) {
+  return arg.isUnknown;
 }
 
 const aCustomer = site.customer;
@@ -16,23 +40,15 @@ const aCustomer = site.customer;
 
 // 클라이언트 1
 {
-  let customerName;
-  if (aCustomer === "미확인 고객") customerName = "거주자";
-  else customerName = aCustomer.name;
+  let customerName = aCustomer.name;
 }
 
 // 클라이언트 2
 {
-  const plan =
-    aCustomer === "미확인 고객"
-      ? registry.billingPlans.basic
-      : aCustomer.billingPlan;
+  const plan = aCustomer.billingPlan;
 }
 
 // 클라이언트 3
 {
-  const weeksDeliquent =
-    aCustomer === "미확인 고객"
-      ? 0
-      : aCustomer.paymentHistory.weeksDeliquentInLastYear;
+  const weeksDeliquent = aCustomer.paymentHistory.weeksDeliquentInLastYear;
 }

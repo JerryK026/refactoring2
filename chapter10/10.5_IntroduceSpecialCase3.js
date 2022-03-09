@@ -19,28 +19,43 @@ const unknownClient = {
   customer: "미확인 고객",
 };
 
-const site = acquireSiteData();
+const rawSite = acquireSiteData();
+const site = enrichSite(rawSite);
 const aCustomer = site.customer;
+
+function enrichSite(aSite) {
+  const result = _.cloneDeep(aSite);
+  const UnknownCustomer = {
+    isUnknown: true,
+    name: "거주자",
+    billingPlan: registry.billingPlans.basic,
+    paymentHistory: {
+      weeksDelinquentInLastYear: 0,
+    },
+  };
+
+  if (isUnknown(result.customer)) result.customer = UnknownCustomer;
+  else result.customer.isUnknown = false;
+  return result;
+}
+
+function isUnknown(aCustomer) {
+  if (aCustomer === "미확인 고객") return true;
+  else return aCustomer.isUnknown;
+}
 
 // 클라이언트 1
 {
-  let customerName;
-  if (aCustomer === "미확인 고객") customerName = "거주자";
-  else customerName = aCustomer.name;
+  const customerName = aCustomer.name;
+  // ... 수많은 코드 ...
 }
 
 // 클라이언트 2
 {
-  const plan =
-    aCustomer === "미확인 고객"
-      ? registry.billingPlans.basic
-      : aCustomer.billingPlan;
+  const plan = aCustomer.billingPlan;
 }
 
 // 클라이언트 3
 {
-  const weeksDelinquent =
-    aCustomer === "미확인 고객"
-      ? 0
-      : aCustomer.paymentHistory.weeksDelinquentInLastYear;
+  const weeksDelinquent = aCustomer.paymentHistory.weeksDelinquentInLastYear;
 }
