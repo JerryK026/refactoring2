@@ -13,3 +13,12 @@ function deliveryDate(anOrder, isRush) {
   if (isRush) result = result.minusDays(1);
   return result;
 }
+
+// isRush를 취상위 분배 조건으로 뽑아내면 일이 커지므로 래핑 함수를 고려한다.
+function rushDeliveryDate(anOrder) {
+  return deliveryDate(anOrder, true);
+}
+
+function regularDeliveryDate(anOrder) {
+  return deliveryDate(anOrder, false);
+}

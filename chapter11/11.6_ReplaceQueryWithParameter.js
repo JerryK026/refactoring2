@@ -1,15 +1,26 @@
 class HeatingPlan {
   get targetTemperature() {
-    if (thermoastat.selectedTemparature > this._max) return this._max;
-    else if (thermoastat.selectedTemparature < this._min) return this._min;
-    else return thermoastat.selectedTemparature;
+    return this.targetTemperature(thermoastat.selectedTemparature);
+  }
+
+  targetTemperature(selectedTemparature) {
+    if (selectedTemparature > this._max) return this._max;
+    else if (selectedTemparature < this._min) return this._min;
+    else return selectedTemparature;
   }
 }
 
 // 호출자
 {
-  if (thePlan.targetTemperature > thermoastat.currentTemperature) setToHeat();
-  else if (thePlan.targetTemperature < thermoastat.currentTemperature)
+  if (
+    thePlan.xxNEWtargetTemperature(thermoastat.selectedTemparature) >
+    thermoastat.currentTemperature
+  )
+    setToHeat();
+  else if (
+    thePlan.xxNEWtargetTemperature(thermoastat.selectedTemparature) <
+    thermoastat.currentTemperature
+  )
     setToCool();
   else setOff();
 }
