@@ -16,4 +16,4 @@ class Employee {
 }
 
 // 호출자
-candidate = new Employee(document.name, document.empType);
+const candidate = new Employee(document.name, document.empType);
