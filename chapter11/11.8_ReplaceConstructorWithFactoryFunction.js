@@ -17,3 +17,5 @@ class Employee {
 
 // 호출자
 const candidate = new Employee(document.name, document.empType);
+
+const leadEngineer = new Employee(document.leadEngineer, "E");
