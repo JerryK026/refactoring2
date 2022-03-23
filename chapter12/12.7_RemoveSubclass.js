@@ -1,6 +1,7 @@
 class Person {
   constructor(name) {
     this._name = name;
+    this._genderCode = genderCode;
   }
 
   get name() {
@@ -8,7 +9,15 @@ class Person {
   }
 
   get genderCode() {
-    return "X";
+    return this._genderCode;
+  }
+
+  get isMale() {
+    return "M" === this._genderCode;
+  }
+
+  get isFemale() {
+    return "F" === this._genderCode;
   }
 }
 
@@ -24,7 +33,26 @@ class Female extends Person {
   }
 }
 
+function createPerson(name) {
+  return new Person(name);
+}
+
+function createFromInput(aRecord) {
+  switch (aRecord.gender) {
+    case "M":
+      return new Person(aRecord.name, "M");
+    case "F":
+      return new Person(aRecord.name, "F");
+    default:
+      return new Person(aRecord.name, "X");
+  }
+}
+
+function loadFromInput(data) {
+  return data.map((aRecord) => createPerson(aRecord));
+}
+
 // 클라이언트
 {
-  const numberOfMales = people.filter((p) => p instanceof Male).length;
+  const numberOfMales = people.filter((p) => p.isMale).length;
 }

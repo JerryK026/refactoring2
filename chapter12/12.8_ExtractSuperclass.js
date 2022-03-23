@@ -1,7 +1,23 @@
-class Employee {
-  constructor(name, id, monthlyCost) {
-    thid._id = id;
+class Party {
+  constructor(name) {
     this._name = name;
+  }
+
+  get name() {
+    // 이름
+    return this._name;
+  }
+
+  get annualCost() {
+    // 총 연간 비용
+    return this.monthlyCost * 12;
+  }
+}
+
+class Employee extends Party {
+  constructor(name, id, monthlyCost) {
+    super(name);
+    thid._id = id;
     this._monthlyCost = monthlyCost;
   }
 
@@ -9,35 +25,23 @@ class Employee {
     // 월간 비용
     return this._monthlyCost;
   }
-  get name() {
-    // 이름
-    return this._name;
-  }
+
   get id() {
     return this._id;
   }
-
-  get annualCost() {
-    // 연간 비용
-    return this.monthlyCost * 12;
-  }
 }
 
-class Department {
+class Department extends Party {
   constructor(name, staff) {
-    this._name = name;
+    super(name);
     this._staff = staff;
   }
 
   get staff() {
     return this._staff.slice();
   }
-  get name() {
-    // 이름
-    return this._name;
-  }
 
-  get totalMonthlyCost() {
+  get monthlyCost() {
     return this.staff
       .map((e) => e.monthlyCost)
       .reduce((sum, cost) => sum + cost);
@@ -45,10 +49,5 @@ class Department {
 
   get headCousnt() {
     return this.staff.length;
-  }
-
-  get totalAnnualCost() {
-    // 총 연간 비용
-    return this.totalMonthlyCost * 12;
   }
 }

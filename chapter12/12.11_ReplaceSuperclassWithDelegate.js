@@ -16,10 +16,22 @@ class CatalogItem {
   }
 }
 
-class Scroll extends CatalogItem {
-  constructor(id, title, tags, dateLastCleaned) {
-    super(id, title, tags);
+class Scroll {
+  constructor(id, dateLastCleaned, catalogID, catalog) {
+    // 값을 참조로 바꾸기 위해
+    this._id = id;
+    this._catalogItem = catalog.get(catalogID);
     this._lastCleaned = dateLastCleaned;
+  }
+
+  get id() {
+    return this._id;
+  }
+  get title() {
+    return this._catalogItem._title;
+  }
+  hasTag(arg) {
+    return this._catalogItem._tags.includes(arg);
   }
 
   needsCleaning(targetDate) {
@@ -31,3 +43,14 @@ class Scroll extends CatalogItem {
     return this._lastCleaned.until(targetDate, ChronoUnit.DAYS);
   }
 }
+
+// 스크롤 읽기
+const scrolls = aDocument.map(
+  (record) =>
+    new Scroll(
+      record.id,
+      LocalDate.parse(record.lastCleaned),
+      record.catalogData.id,
+      catalog
+    )
+);
